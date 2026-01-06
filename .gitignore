@@ -1,1 +1,10 @@
+# Security (CRITICAL)
 credentials.json
+token.json
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual Environment (Standard best practice)
+.venv/
