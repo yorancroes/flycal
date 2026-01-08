@@ -1,77 +1,98 @@
-/* calendar.tcss - Nord Theme */
+/* Tokyo Night Theme Variables */
+$background: #1a1b26;
+$surface: #32344a;
+$surface-lighten-2: #444b6a;
+$primary: #7aa2f7;
+$text: #a9b1d6;
+$text-muted: #787c99;
 
+/* Base App Colors */
 Screen {
-    background: #2E3440;
+    background: $background;
 }
 
-WeekView {
+ContentSwitcher, WeekView {
+    background: transparent;
+    height: 100%;
+}
+
+/* 1. The WeekView Layout */
+WeekView Horizontal {
+    height: 100%;
+}
+
+#left-panel {
+    width: 80%;
+    height: 100%;
+    background: transparent;
+}
+
+TaskBar {
+    width: 20%;
+    height: 100%;
+    background: $surface;
+    border-left: solid $surface-lighten-2;
+    padding: 1;
+}
+
+/* 2. THE GRID FIX: This must target the specific widget yielding the slots */
+CalendarGrid {
     layout: grid;
     height: 100%;
-    /* 8 Columns: 1 for Time, 7 for Days */
-    grid-size: 8 17; 
-    /* First column fits content, others share space equally */
+    width: 100%;
+    /* 8 Columns: Time + 7 Days */
     grid-columns: auto 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-rows: 1 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-gutter: 0 0; 
-    padding: 0;
-    background: #2E3440;
+    /* 1 Row for Header + 16 Rows for Hours (7:00 to 22:00) */
+    grid-rows: auto 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4;
+    grid-gutter: 0 0;
 }
 
-MonthView {
-    height: 100%;
-    background: #2E3440;
-}
-
+/* 3. Slot and Header Styling */
 .day-header {
     text-align: center;
-    content-align: center bottom;
-    color: #ECEFF4;
-    height: auto;
-    width: 100%;
+    color: $primary;
+    text-style: bold;
+    border-bottom: solid $surface;
+    content-align: center middle;
+}
+
+.header-corner {
+    border-bottom: solid $surface;
+    border-right: solid $surface;
 }
 
 .time-label {
     text-align: right;
     padding-right: 1;
-    color: #D8DEE9;
-    background: #3B4252;
-    border-right: solid #434C5E;
-    height: 1fr;
+    color: $text-muted;
+    border-right: solid $surface;
+    content-align: right middle;
 }
 
 .calendar-slot {
-    border: solid #434C5E;
-    background: #3B4252;
-    color: #ECEFF4;
-    height: 1fr;
+    border: solid $surface;
+    background: transparent;
 }
 
 .calendar-slot:hover {
-    background: #4C566A;
-    border: solid #88C0D0;
+    background: $surface-lighten-2;
 }
 
-.calendar-slot:focus {
-    background: #434C5E;
-    border: heavy #88C0D0;
+/* 4. TaskBar Styling */
+.task-bar-title {
+    color: $primary;
+    text-style: bold;
+    margin-bottom: 1;
 }
 
-Header {
-    background: #5E81AC;
-    color: #ECEFF4;
+.task-item {
+    color: $text;
+    background: $surface-lighten-2;
+    margin-bottom: 1;
+    padding: 0 1;
 }
 
 Footer {
-    background: #3B4252;
-    color: #D8DEE9;
-}
-
-ContentSwitcher {
-    height: 1fr;
-    background: #2E3440;
-}
-
-.header-corner {
-    background: #3B4252;
-    border: tall #434C5E;
+    background: $surface;
+    color: $text-muted;
 }

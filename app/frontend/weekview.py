@@ -1,9 +1,19 @@
 from textual.app import App, ComposeResult
-from textual.widgets import Static, Label 
+from textual.widgets import Static, Label
+from textual.containers import Vertical, Horizontal
 
-class WeekView(Static):
+
+class CalendarGrid(Static):
     HOURS = range(7, 23)
-    DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    DAYS = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ]
 
     def compose(self) -> ComposeResult:
         yield Label("", classes="header-corner")
@@ -17,8 +27,24 @@ class WeekView(Static):
             # The time label on the left
             time_str = f"{hour:02d}:00"
             yield Label(time_str, classes="time-label")
-            
+
             # The slots for each day
             for day in self.DAYS:
                 slot_id = f"slot-{day.lower()}-{hour}"
                 yield Static(id=slot_id, classes="calendar-slot")
+
+
+class TaskBar(Static):
+    def compose(self) -> ComposeResult:
+        yield Label("Tasks for the day", classes="task-bar-title")
+        yield Static("Task 1", classes="task-item")
+        yield Static("Task 2", classes="task-item")
+        yield Static("Task 3", classes="task-item")
+
+
+class WeekView(Static):
+    def compose(self) -> ComposeResult:
+        with Horizontal():
+            with Vertical(id="left-panel"):
+                yield CalendarGrid()
+            yield TaskBar()
